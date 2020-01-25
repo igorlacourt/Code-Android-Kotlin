@@ -19,7 +19,10 @@ class HomeAdapter(private val movies: ArrayList<Movie>) : RecyclerView.Adapter<H
 
         fun bind(movie: Movie) {
             itemView.titleTextView.text = movie.title
-            itemView.genresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name }
+//            itemView.genresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name}
+            movie.genres?.map {
+                itemView.genresTextView.append("$it, ")
+            }
             itemView.releaseDateTextView.text = movie.releaseDate
 
             Glide.with(itemView)

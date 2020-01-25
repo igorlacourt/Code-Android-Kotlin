@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.arctouch.codechallenge.R
+import com.arctouch.codechallenge.home.HomeAdapter
+import com.arctouch.codechallenge.upcoming.viewmodel.UpcomingViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class UpcomingFragment : Fragment() {
 
@@ -22,9 +25,9 @@ class UpcomingFragment : Fragment() {
         upcomingViewModel =
                 ViewModelProviders.of(this).get(UpcomingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        upcomingViewModel.text.observe(this, Observer {
-            textView.text = it
+
+        upcomingViewModel.listOfMovies.observe(this, Observer {
+            rv_upcoming.adapter = it.data?.let { movies -> HomeAdapter(movies) }
         })
         return root
     }

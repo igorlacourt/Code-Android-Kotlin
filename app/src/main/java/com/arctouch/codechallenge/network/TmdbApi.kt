@@ -1,5 +1,8 @@
 package com.arctouch.codechallenge.network
 
+import com.arctouch.codechallenge.upcoming.dto.DetailsDTO
+import com.arctouch.codechallenge.upcoming.dto.GenreResponseDTO
+import com.arctouch.codechallenge.upcoming.dto.MovieResponseDTO
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Call
@@ -29,7 +32,7 @@ interface TmdbApi {
 
     ): Call<MovieResponseDTO>
 
-    //    https://api.themoviedb.org/3/movie/287947/recommendations?api_key=fef98cf6bd829f53836bb7d92b02d6ef&language=en-US&page=1
+    //    https://api.themoviedb.org/3/movie/287947/recommendations?api_key=<API_KEY>&language=en-US&page=1
     @GET("movie/{id}/recommendations")
     fun getRecommendations(
         @Path("id")

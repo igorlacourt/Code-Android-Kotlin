@@ -34,21 +34,21 @@ class UpcomingFragment : Fragment() {
 
         setUpRecyclerView(root)
 
-        viewModel.fetchUpcoming()
-        viewModel.listOfMovies.observe(this, Observer {response ->
-            when(response.status){
-                Resource.Status.LOADING -> {
-                    setViewLoading(root)
-                }
-                Resource.Status.SUCCESS -> {
-                    setViewSuccess(root)
-                    adapter?.setMovies(response.data)
-                }
-                Resource.Status.ERROR -> {
-                    setViewError(root)
-                }
-            }
-        })
+//        viewModel.fetchUpcoming()
+//        viewModel.listOfMovies.observe(this, Observer {response ->
+//            when(response.status){
+//                Resource.Status.LOADING -> {
+//                    setViewLoading(root)
+//                }
+//                Resource.Status.SUCCESS -> {
+//                    setViewSuccess(root)
+//                    adapter?.setMovies(response.data)
+//                }
+//                Resource.Status.ERROR -> {
+//                    setViewError(root)
+//                }
+//            }
+//        })
         return root
     }
 

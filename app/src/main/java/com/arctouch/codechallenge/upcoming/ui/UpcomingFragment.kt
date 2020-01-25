@@ -8,16 +8,20 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.arctouch.codechallenge.R
 import com.arctouch.codechallenge.home.HomeAdapter
 import com.arctouch.codechallenge.network.Resource
 import com.arctouch.codechallenge.upcoming.viewmodel.UpcomingViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.home_activity.view.*
 
 class UpcomingFragment : Fragment() {
 
     private lateinit var viewModel: UpcomingViewModel
+    private var recyclerView: RecyclerView? = null
+    private var adapter: HomeAdapter? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -28,6 +32,7 @@ class UpcomingFragment : Fragment() {
                 ViewModelProviders.of(this).get(UpcomingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
+        setUpRecyclerView(root)
 
         viewModel.fetchUpcoming()
         viewModel.listOfMovies.observe(this, Observer {response ->
@@ -37,15 +42,20 @@ class UpcomingFragment : Fragment() {
                 }
                 Resource.Status.SUCCESS -> {
                     setViewSuccess(root)
-                    rv_upcoming.adapter(response.data)
+                    adapter?.setMovies(response.data)
                 }
                 Resource.Status.ERROR -> {
                     setViewError(root)
                 }
             }
-            rv_upcoming.adapter = it.data?.let { movies -> HomeAdapter(movies) }
         })
         return root
+    }
+
+    private fun setUpRecyclerView(root: View) {
+        adapter = HomeAdapter(ArrayList())
+        recyclerView = root.findViewById(R.id.rv_upcoming)
+        recyclerView?.adapter = adapter
     }
 
     fun setViewSuccess(root: View) {

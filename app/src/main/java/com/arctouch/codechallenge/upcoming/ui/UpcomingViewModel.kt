@@ -1,10 +1,10 @@
-package com.arctouch.codechallenge.ui.home
+package com.arctouch.codechallenge.upcoming.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class UpcomingViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

@@ -36,3 +36,5 @@ captures/
 *.iml
 .idea/*
 
+# Gradle configuration file
+gradle.properties

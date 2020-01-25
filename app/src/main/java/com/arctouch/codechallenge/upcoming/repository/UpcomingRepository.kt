@@ -11,7 +11,7 @@ import com.arctouch.codechallenge.network.Resource
 import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.upcoming.dto.MovieResponseDTO
 
-class UpcomingRepository : NetworkCallback<ArrayList<Movie>> {
+class UpcomingRepository {
     private val _listsOfMovies = MutableLiveData<Resource<ArrayList<Movie>>>()
     val listsOfMovies: LiveData<Resource<ArrayList<Movie>>>
     get() = _listsOfMovies
@@ -19,13 +19,8 @@ class UpcomingRepository : NetworkCallback<ArrayList<Movie>> {
     fun fetchUpcoming() {
         NetworkCall<MovieResponseDTO, ArrayList<Movie>>().makeCall(
                 Apifactory.tmdbApi.getUpcomingMovies(AppConstants.LANGUAGE, 1),
-                this,
+                _listsOfMovies,
                 MapperFunctions::movieResponseToListOfMovies
         )
     }
-
-    override fun networkCallResult(callback: Resource<ArrayList<Movie>>) {
-        _listsOfMovies.value = callback
-    }
-
 }

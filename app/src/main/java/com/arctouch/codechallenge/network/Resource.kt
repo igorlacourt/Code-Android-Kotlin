@@ -19,10 +19,10 @@ class Resource<R> private constructor(val status: Status, val data: R?, val erro
                 error
             )
         }
-        fun <R> loading(data: R?): Resource<R> {
+        fun <R> loading(): Resource<R> {
             return Resource(
                 Status.LOADING,
-                data,
+                null,
                 null
             )
         }

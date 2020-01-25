@@ -1,5 +1,6 @@
 package com.arctouch.codechallenge.network
 
+import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.upcoming.dto.DetailsDTO
 import com.arctouch.codechallenge.upcoming.dto.GenreResponseDTO
 import com.arctouch.codechallenge.upcoming.dto.MovieResponseDTO

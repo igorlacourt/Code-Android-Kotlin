@@ -36,7 +36,7 @@ class UpcomingFragment : Fragment() {
 
         viewModel.fetchUpcoming()
         viewModel.listOfMovies.observe(this, Observer {response ->
-            when(response){
+            when(response.status){
                 Resource.Status.LOADING -> {
                     setViewLoading(root)
                 }

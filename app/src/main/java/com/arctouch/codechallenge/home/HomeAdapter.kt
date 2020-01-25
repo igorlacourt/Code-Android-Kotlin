@@ -1,9 +1,9 @@
 package com.arctouch.codechallenge.home
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.arctouch.codechallenge.R
 import com.arctouch.codechallenge.model.Movie
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder
@@ -23,9 +23,9 @@ class HomeAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<HomeAd
             itemView.releaseDateTextView.text = movie.releaseDate
 
             Glide.with(itemView)
-                .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
-                .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-                .into(itemView.posterImageView)
+                    .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
+                    .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+                    .into(itemView.posterImageView)
         }
     }
 

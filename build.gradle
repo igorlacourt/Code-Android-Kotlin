@@ -4,6 +4,7 @@ buildscript {
         support_library_version = '27.0.2'
         retrofit2_version = "2.5.0"
         okhttp3_version = "4.1.1"
+        paging_version = "1.0.1"
     }
     repositories {
         google()

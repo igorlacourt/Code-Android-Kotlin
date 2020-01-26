@@ -1,4 +1,5 @@
 package com.arctouch.codechallenge.network
+import android.content.Context
 import com.arctouch.codechallenge.AppConstants
 import com.arctouch.codechallenge.BuildConfig
 import okhttp3.*
@@ -25,24 +26,33 @@ object Apifactory {
         chain.proceed(newRequest)
     }
 
-    fun loggingClient(): OkHttpClient{
+    fun loggingClient(context: Context): OkHttpClient{
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         return OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(ConnectivityInterceptor(context))
             .addNetworkInterceptor(interceptor)
             .addNetworkInterceptor(authInterceptor)
             .build()
     }
 
-    fun retrofit(): Retrofit = Retrofit.Builder()
+    fun retrofit(context: Context): Retrofit = Retrofit.Builder()
         .baseUrl(AppConstants.TMDB_BASE_URL)
-        .client(loggingClient())
+        .client(loggingClient(context))
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
-    val tmdbApi: TmdbApi = retrofit().create(TmdbApi::class.java)
+    private var tmdbApi: TmdbApi? = null
+
+    fun tmdbApi(context: Context) : TmdbApi?{
+        if(tmdbApi == null) {
+            tmdbApi = retrofit(context).create(TmdbApi::class.java)
+        }
+        return tmdbApi
+    }
+
 }

@@ -10,14 +10,14 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 open class NetworkCall<T, R> {
-    fun makeCall(call: Call<T>,
+    fun makeCall(call: Call<T>?,
                  livedata: MutableLiveData<Resource<R>>,
                  map: (T) -> R
     ) {
         Log.d("calltest", "makeCall called")
         livedata.value = Resource.loading()
 
-        call.enqueue(object : Callback<T> {
+        call?.enqueue(object : Callback<T> {
 
             override fun onFailure(call: Call<T>, t: Throwable) {
                 livedata.value = checkErrorType(t)
@@ -46,16 +46,19 @@ open class NetworkCall<T, R> {
         })
     }
 
-    private fun checkErrorType(t: Throwable) : Resource<R> {
+    fun checkErrorType(t: Throwable) : Resource<R> {
         return when (t) {
             is SocketTimeoutException -> {
                 Resource.error(Error(408, t.message))
             }
             is UnknownHostException -> {
-                Resource.error(Error(99, t.message))
+                Resource.error(Error(503, t.message))
             }
             is HttpException -> {
-                Resource.error(Error(400, t.message))
+                Resource.error(Error(404, t.message))
+            }
+            is NoInternet -> {
+                Resource.error(Error(0, t.message))
             }
             else -> {
                 t.printStackTrace()

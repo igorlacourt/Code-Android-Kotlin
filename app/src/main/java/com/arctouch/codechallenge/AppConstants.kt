@@ -2,7 +2,7 @@ package com.arctouch.codechallenge
 
 object AppConstants{
     const val JSON_PLACEHOLDER_BASE_URL = "https://jsonplaceholder.typicode.com"
-    const val TMDB_BASE_URL = "https://api.themoviedb.org/3/"
+    const val TMDB_BASE_URL = "https://api.themoviedb.org/3/25/"
     const val TMDB_IMAGE_BASE_URL_W185 = "https://image.tmdb.org/t/p/w185/"
     const val TMDB_IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500/"
     const val TMDB_IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780/"

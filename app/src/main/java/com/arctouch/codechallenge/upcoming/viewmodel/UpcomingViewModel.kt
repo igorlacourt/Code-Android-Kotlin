@@ -1,17 +1,21 @@
 package com.arctouch.codechallenge.upcoming.viewmodel
 
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.arctouch.codechallenge.network.Error
 import com.arctouch.codechallenge.network.Resource
 import com.arctouch.codechallenge.upcoming.datasource.MovieDataSource
 import com.arctouch.codechallenge.upcoming.datasource.UserDataSourceFactory
 import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.upcoming.repository.UpcomingRepository
 
-class UpcomingViewModel : ViewModel() {
+class UpcomingViewModel(application: Application) : AndroidViewModel(application) {
 //    val repository = UpcomingRepository()
 //
 //    val listOfMovies: LiveData<Resource<ArrayList<Movie>>>
@@ -20,10 +24,15 @@ class UpcomingViewModel : ViewModel() {
 
     var moviePagedList: LiveData<PagedList<Movie>>
     private var liveDataSource: LiveData<MovieDataSource>
+    private val _movieDataSourceError: MutableLiveData<Error>
+    var movieDataSourceError: LiveData<Error>? = null
+        get() = _movieDataSourceError
 
     init {
-        val itemDataSourceFactory = UserDataSourceFactory()
-        liveDataSource = itemDataSourceFactory.userLiveDataSource
+        val itemDataSourceFactory = UserDataSourceFactory(application)
+        liveDataSource = itemDataSourceFactory.movieLiveDataSource
+
+        _movieDataSourceError = itemDataSourceFactory.movieDataSourceError
 
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)

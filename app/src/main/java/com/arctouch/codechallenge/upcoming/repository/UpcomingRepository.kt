@@ -1,5 +1,6 @@
 package com.arctouch.codechallenge.upcoming.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.arctouch.codechallenge.AppConstants
@@ -16,9 +17,9 @@ class UpcomingRepository {
     val listsOfMovies: LiveData<Resource<ArrayList<Movie>>>
     get() = _listsOfMovies
 
-    fun fetchUpcoming() {
+    fun fetchUpcoming(context: Context) {
         NetworkCall<MovieResponseDTO, ArrayList<Movie>>().makeCall(
-                Apifactory.tmdbApi.getUpcomingMovies(AppConstants.LANGUAGE, 1),
+                Apifactory.tmdbApi(context)?.getUpcomingMovies(AppConstants.LANGUAGE, 1),
                 _listsOfMovies,
                 MapperFunctions::movieResponseToListOfMovies
         )

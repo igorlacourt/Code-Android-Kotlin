@@ -7,7 +7,6 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arctouch.codechallenge.R
-import com.arctouch.codechallenge.home.HomeAdapter
 import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder
 import com.bumptech.glide.Glide

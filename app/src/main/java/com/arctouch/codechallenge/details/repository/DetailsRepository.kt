@@ -32,8 +32,6 @@ class DetailsRepository(val application: Application) {
         )
     }
     fun getRecommendedMovies(id: Int) {
-        //  This checked was inserted for changing the id of frozen2 to the id of Frozen1 because the similar results were
-        //displaying unappropriated results for children
         var checkedId: Int
         checkedId = id
         if(checkedId == 330457) {

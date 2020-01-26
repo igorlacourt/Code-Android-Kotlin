@@ -7,6 +7,7 @@ import com.arctouch.codechallenge.AppConstants
 import com.arctouch.codechallenge.domainmapper.MapperFunctions
 import com.arctouch.codechallenge.network.Apifactory
 import com.arctouch.codechallenge.network.NetworkCall
+import com.arctouch.codechallenge.network.Resource
 import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.upcoming.dto.MovieDTO
 import com.arctouch.codechallenge.upcoming.dto.MovieResponseDTO
@@ -28,11 +29,6 @@ class SearchRepository(val application: Application){
                     searchResult?.value = responseDTO.body()?.results
             }
         })
-//        NetworkCall<MovieResponseDTO, ArrayList<Movie>>().makeCall(
-//                Apifactory.tmdbApi(application)?.getUpcomingMovies(AppConstants.LANGUAGE, 1),
-//                searchResult,
-//                MapperFunctions::movieResponseToListOfMovies
-//        )
     }
 
 

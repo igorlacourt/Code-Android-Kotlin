@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
-        android:focusable="false">
+        android:focusable="false"
+        android:layout_marginEnd="24dp">
 
         <ImageView
             android:id="@+id/posterImageView"
@@ -58,7 +59,8 @@
             android:clickable="false"
             android:focusable="false"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textSize="14sp"
             android:textColor="@color/textColor"
             tools:text="Drama, Romance, Thriller" />

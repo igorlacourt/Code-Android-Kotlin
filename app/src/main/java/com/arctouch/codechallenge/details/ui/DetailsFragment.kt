@@ -39,6 +39,7 @@ class DetailsFragment : Fragment(), ItemClick {
     lateinit var backdropImageView: ImageView
     lateinit var voteAverage: TextView
     lateinit var emptyRecomendations: TextView
+    lateinit var errorMessage: TextView
     lateinit var searchStreamOnGoogle: ConstraintLayout
     private var movieTitle: String? = null
 
@@ -56,15 +57,8 @@ class DetailsFragment : Fragment(), ItemClick {
 
         var recyclerView = view.findViewById<RecyclerView>(R.id.rv_recommended)
         val adapter = GridAdapter(context, this, ArrayList())
-//        var layoutManager =
-//            object : GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false) {
-//                override fun canScrollVertically(): Boolean {
-//                    return false
-//                }
-//            }
         recyclerView.layoutManager =
                 GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
-//        recyclerView.addItemDecoration(MoviePosterItemDecorator(50))
 
         recyclerView.adapter = adapter
 
@@ -136,11 +130,10 @@ class DetailsFragment : Fragment(), ItemClick {
                     displayDetails(it.data)
                 }
                 Resource.Status.LOADING -> {
-                    // A return is given only once, so it is SUCCESS or ERROR. This loading case may not be necessary.
                     progressBar.visibility = View.VISIBLE
                 }
                 Resource.Status.ERROR -> {
-                    //Display error message
+                    errorMessage.visibility = View.VISIBLE
                 }
             }
         })
@@ -149,30 +142,6 @@ class DetailsFragment : Fragment(), ItemClick {
             details?.openYoutube(context)
         }
 
-//        wishListButton.setOnClickListener {
-//            Log.d("log_is_inserted", "Button clicked")
-//            if (viewModel.isInDatabase.value == false) {
-//                Log.d("log_is_inserted", "isInDatabase false")
-//                val itemData = viewModel.movie?.value?.data
-//                if (itemData?.id != null) {
-//                    viewModel.insert(
-//                            MapperFunctions.toMyListItem(
-//                                    itemData
-//                            )
-//                    )
-//                } else {
-//                    Toast.makeText(
-//                            context,
-//                            "Did not save to My List.",
-//                            Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//            } else {
-//                Log.d("log_is_inserted", "isInDatabase true")
-//                viewModel.movie?.value?.data?.id?.let { id -> viewModel.delete(id) }
-//            }
-//        }
-
         return view
     }
 
@@ -180,6 +149,8 @@ class DetailsFragment : Fragment(), ItemClick {
         voteAverage = view.findViewById(R.id.tv_vote_average)
         wishListButton = view.findViewById(R.id.wish_list_btn)
         backdropImageView = view.findViewById(R.id.detail_backdrop)
+        errorMessage = view.findViewById(R.id.tv_error_message)
+        errorMessage.visibility = View.INVISIBLE
         progressBar = view.findViewById(R.id.details_progress_bar)
         progressBar.visibility = View.VISIBLE
         emptyRecomendations = view.findViewById(R.id.tv_recommended_empty)
@@ -191,7 +162,7 @@ class DetailsFragment : Fragment(), ItemClick {
     private fun searchStreamOnGoogleClickListener() {
         searchStreamOnGoogle.setOnClickListener {
             movieTitle?.let {title ->
-                var escapedQuery = URLEncoder.encode("watch movie ${title}", "UTF-8")
+                var escapedQuery = URLEncoder.encode("assistir filme ${title}", "UTF-8")
                 var uri = Uri.parse("https://www.google.com/#q=" + escapedQuery)
                 var intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)

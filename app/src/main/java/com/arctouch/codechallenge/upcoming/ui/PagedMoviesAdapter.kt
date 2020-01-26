@@ -3,6 +3,7 @@ package com.arctouch.codechallenge.upcoming.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -32,13 +33,18 @@ class PagedMoviesAdapter(val onMovieClick: MovieClick) : PagedListAdapter<Movie,
 
         fun bind(movie: Movie, onMovieClick: MovieClick) {
             itemView.titleTextView.text = movie.title
-            Cache.genres.map {genre: Genre ->
-                movie.genreIds?.map {id: Int ->
-                    if (genre.id == id) {
-                        itemView.genresTextView.append("${genre.name} ".toLowerCase())
-                    }
-                }
-            }
+
+            buildGenresText(movie, itemView.genresTextView)
+//            var str = StringBuilder()
+//            movie.genreIds?.map {id: Int ->
+//                Cache.genres.map {genre: Genre ->
+//                    if (genre.id == id) {
+//                        str.append("${genre.name} - ".toLowerCase())
+//                        itemView.genresTextView.append()
+//                    }
+//                }
+//            }
+
             itemView.releaseDateTextView.text = movie.releaseDate
             itemView.ly_movie_item.setOnClickListener {
                 movie.id?.let { id -> onMovieClick.onMovieClick(id) }
@@ -48,6 +54,18 @@ class PagedMoviesAdapter(val onMovieClick: MovieClick) : PagedListAdapter<Movie,
                     .apply(RequestOptions().placeholder(R.drawable.placeholder))
                     .into(itemView.posterImageView)
 
+        }
+
+        private fun buildGenresText(movie: Movie, genresTextView: TextView) {
+            var str = StringBuilder()
+            movie.genreIds?.map {id: Int ->
+                Cache.genres.map {genre: Genre ->
+                    if (genre.id == id) {
+                        str.append("${genre.name} - ".toLowerCase())
+                    }
+                }
+            }
+            genresTextView.append(str.toString().substring(0, str.toString().length - 3))
         }
     }
 

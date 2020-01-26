@@ -7,6 +7,8 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arctouch.codechallenge.R
+import com.arctouch.codechallenge.data.Cache
+import com.arctouch.codechallenge.upcoming.domainobject.Genre
 import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder
 import com.bumptech.glide.Glide
@@ -30,9 +32,12 @@ class PagedMoviesAdapter(val onMovieClick: MovieClick) : PagedListAdapter<Movie,
 
         fun bind(movie: Movie, onMovieClick: MovieClick) {
             itemView.titleTextView.text = movie.title
-            itemView.genresTextView.text = "GENERos"//movie.genres?.joinToString(separator = ", ") { it.name}
-            movie.genres?.map {
-                itemView.genresTextView.append("$it, ")
+            Cache.genres.map {genre: Genre ->
+                movie.genreIds?.map {id: Int ->
+                    if (genre.id == id) {
+                        itemView.genresTextView.append("${genre.name} ".toLowerCase())
+                    }
+                }
             }
             itemView.releaseDateTextView.text = movie.releaseDate
             itemView.ly_movie_item.setOnClickListener {
@@ -42,6 +47,7 @@ class PagedMoviesAdapter(val onMovieClick: MovieClick) : PagedListAdapter<Movie,
                     .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
                     .apply(RequestOptions().placeholder(R.drawable.placeholder))
                     .into(itemView.posterImageView)
+
         }
     }
 

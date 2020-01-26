@@ -42,12 +42,18 @@ class UpcomingFragment : Fragment(), MovieClick {
         setViewLoading(root)
         setUpRecyclerView(root)
 
+        viewModel.mustInitDataSource?.observe(this, Observer { mustInitDataSource: Boolean ->
+            Log.d("initdsrc", "observe, mustInitDataSource = $mustInitDataSource")
+            if(mustInitDataSource)
+                viewModel.initDataSource()
+        })
+
         viewModel.movieDataSourceError?.observe(this, Observer { error ->
             Log.d("viewstatelog", "error: ${error.cd} - ${error.message}")
             setViewError(root, error.message)
         })
 
-        viewModel.moviePagedList.observe(this, Observer {movies ->
+        viewModel.moviePagedList?.observe(this, Observer {movies ->
             Log.d("viewstatelog", "observe, movies list size = ${movies.size}")
             if(!movies.isNullOrEmpty()){
                 Log.d("viewstatelog", "success: movies list size = ${movies.size}")

@@ -5,7 +5,7 @@ data class Movie(
         val title: String?,
         val overview: String?,
         val genres: ArrayList<String>?,
-        val genreIds: ArrayList<String>?,
+        val genreIds: ArrayList<Int>?,
         val posterPath: String?,
         val backdropPath: String?,
         val releaseDate: String?

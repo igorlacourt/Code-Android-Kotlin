@@ -1,5 +1,6 @@
 package com.arctouch.codechallenge.network
 
+import com.arctouch.codechallenge.model.GenreResponse
 import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.upcoming.dto.DetailsDTO
 import com.arctouch.codechallenge.upcoming.dto.GenreResponseDTO
@@ -71,5 +72,8 @@ interface TmdbApi {
     ): Observable<MovieResponseDTO>
 
     @GET("genre/movie/list")
-    fun getGenresObservable(): Observable<GenreResponseDTO>
+    fun getGenresObservable(): Observable<GenreResponse>
+
+    @GET("genre/movie/list")
+    fun getGenres(): Call<GenreResponse>
 }

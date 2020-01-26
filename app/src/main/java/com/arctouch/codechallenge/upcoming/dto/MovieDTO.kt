@@ -12,7 +12,7 @@ data class MovieDTO(
     val backdrop_path: String?,
 
     @Expose
-    val genre_ids: ArrayList<String>?,
+    val genre_ids: ArrayList<Int>?,
 
     @Expose
     var genres: ArrayList<String>?,

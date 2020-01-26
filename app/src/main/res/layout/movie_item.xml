@@ -12,7 +12,8 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="0dp">
+    app:cardCornerRadius="0dp"
+    app:cardBackgroundColor="@color/cardColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -44,6 +45,7 @@
             android:maxLines="2"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/textColor"
             tools:text="Titanic" />
 
         <TextView
@@ -58,6 +60,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textSize="14sp"
+            android:textColor="@color/textColor"
             tools:text="Drama, Romance, Thriller" />
 
         <TextView
@@ -72,6 +75,7 @@
             android:layout_toEndOf="@id/posterImageView"
             android:textSize="12sp"
             android:textStyle="italic"
+            android:textColor="@color/textColor"
             tools:text="19/12/1997" />
 
     </RelativeLayout>

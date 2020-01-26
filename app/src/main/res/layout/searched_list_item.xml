@@ -28,6 +28,7 @@
         android:ellipsize="end"
         android:focusable="false"
         android:maxLines="1"
+        android:textColor="@color/textColor"
         android:padding="14dp"
         tools:text="MY TEXT TESTMY TEXT TEST MY TEXT TESTMY TEXT TEST"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -33,6 +33,8 @@ object Apifactory {
         return OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
+            .callTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(ConnectivityInterceptor(context))
             .addNetworkInterceptor(interceptor)
             .addNetworkInterceptor(authInterceptor)

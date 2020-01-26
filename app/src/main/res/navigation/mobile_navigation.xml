@@ -15,17 +15,34 @@
             app:destination="@id/navigation_home"
             app:popUpTo="@+id/navigation_home"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_navigation_home_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@transition/slide_in_right"
+            app:popExitAnim="@transition/slide_out_right"
+            app:popEnterAnim="@transition/pop_enter_stay"/>
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.arctouch.codechallenge.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
+        android:id="@+id/detailsFragment"
+        android:name="com.arctouch.codechallenge.details.ui.DetailsFragment"
+        android:label="DetailsFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailsFragment_self"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@transition/slide_in_right"
+            app:popExitAnim="@transition/slide_out_right" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.arctouch.codechallenge.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_search"
+        android:name="com.arctouch.codechallenge.search.ui.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

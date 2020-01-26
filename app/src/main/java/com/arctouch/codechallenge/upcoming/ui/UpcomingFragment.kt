@@ -17,8 +17,7 @@ import com.arctouch.codechallenge.upcoming.viewmodel.UpcomingViewModel
 import kotlinx.android.synthetic.main.error_layout.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class UpcomingFragment : Fragment() {
-
+class UpcomingFragment : Fragment(), MovieClick {
     private lateinit var viewModel: UpcomingViewModel
     private var recyclerView: RecyclerView? = null
     private var adapter: PagedMoviesAdapter? = null
@@ -90,7 +89,7 @@ class UpcomingFragment : Fragment() {
     }
 
     private fun setUpRecyclerView(root: View) {
-        adapter = PagedMoviesAdapter()
+        adapter = PagedMoviesAdapter(this)
         recyclerView = root.findViewById(R.id.rv_upcoming)
         recyclerView?.adapter = adapter
     }
@@ -115,5 +114,10 @@ class UpcomingFragment : Fragment() {
         root.rv_upcoming.visibility = View.INVISIBLE
         root.pb_loading_upcoming.visibility = View.INVISIBLE
         root.ly_error.visibility = View.VISIBLE
+    }
+
+    override fun onMovieClick(id: Int) {
+        val detailsToDetailsFragment = UpcomingFragmentDirections.actionNavigationHomeToDetailsFragment(id)
+        findNavController().navigate(detailsToDetailsFragment)
     }
 }

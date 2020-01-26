@@ -24,4 +24,9 @@ class UpcomingRepository {
                 MapperFunctions::movieResponseToListOfMovies
         )
     }
+
+    fun fetchGenres() {
+
+    }
+
 }

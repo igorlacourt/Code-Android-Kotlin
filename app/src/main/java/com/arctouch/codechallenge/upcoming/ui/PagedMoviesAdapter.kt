@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class PagedMoviesAdapter : PagedListAdapter<Movie, PagedMoviesAdapter.MovieViewHolder>(MOVIE_COMPARATOR) {
+class PagedMoviesAdapter(val onMovieClick: MovieClick) : PagedListAdapter<Movie, PagedMoviesAdapter.MovieViewHolder>(MOVIE_COMPARATOR) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagedMoviesAdapter.MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.movie_item, parent, false)
@@ -22,23 +22,25 @@ class PagedMoviesAdapter : PagedListAdapter<Movie, PagedMoviesAdapter.MovieViewH
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val user = getItem(position)
-        user?.let { holder.bind(it) }
+        user?.let { holder.bind(it, onMovieClick) }
     }
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val movieImageUrlBuilder = MovieImageUrlBuilder()
 
-        fun bind(movie: Movie) {
+        fun bind(movie: Movie, onMovieClick: MovieClick) {
             itemView.titleTextView.text = movie.title
-//            itemView.genresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name}
+            itemView.genresTextView.text = "GENERos"//movie.genres?.joinToString(separator = ", ") { it.name}
             movie.genres?.map {
                 itemView.genresTextView.append("$it, ")
             }
             itemView.releaseDateTextView.text = movie.releaseDate
-
+            itemView.ly_movie_item.setOnClickListener {
+                movie.id?.let { id -> onMovieClick.onMovieClick(id) }
+            }
             Glide.with(itemView)
                     .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
-                    .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+                    .apply(RequestOptions().placeholder(R.drawable.placeholder))
                     .into(itemView.posterImageView)
         }
     }
@@ -51,4 +53,8 @@ class PagedMoviesAdapter : PagedListAdapter<Movie, PagedMoviesAdapter.MovieViewH
                     newItem == oldItem
         }
     }
+}
+
+interface MovieClick {
+    fun onMovieClick(id: Int)
 }

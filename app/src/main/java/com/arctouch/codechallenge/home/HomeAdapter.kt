@@ -1,17 +1,24 @@
 package com.arctouch.codechallenge.home
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.arctouch.codechallenge.R
-import com.arctouch.codechallenge.model.Movie
+import com.arctouch.codechallenge.upcoming.domainobject.Movie
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class HomeAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private var movies: ArrayList<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+    fun setMovies(list: ArrayList<Movie>?) {
+        list?.let { nonNullList ->
+            movies = nonNullList
+            notifyDataSetChanged()
+        }
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -19,13 +26,16 @@ class HomeAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<HomeAd
 
         fun bind(movie: Movie) {
             itemView.titleTextView.text = movie.title
-            itemView.genresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name }
+//            itemView.genresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name}
+            movie.genres?.map {
+                itemView.genresTextView.append("$it, ")
+            }
             itemView.releaseDateTextView.text = movie.releaseDate
 
             Glide.with(itemView)
-                .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
-                .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-                .into(itemView.posterImageView)
+                    .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
+                    .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+                    .into(itemView.posterImageView)
         }
     }
 

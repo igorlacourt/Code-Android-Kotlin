@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#424242</color>
+    <color name="colorPrimary">#A93A3A3A</color>
     <color name="colorPrimaryDark">#1B1B1B</color>
-    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorAccent">#E97038</color>
+
+    <color name="colorBackground">#575757</color>
+
+    <color name="cardColor">#242424</color>
+    <color name="trailerButtonColor">#F0F0F0</color>
+    <color name="whiteButtonTextColor">#1F1F1F</color>
+    <color name="whiteButtonColor">#F0F0F0</color>
+    <color name="releaseYearColor">#727272</color>
+    <color name="textColor">#E2E2E2</color>
+    <color name="hintColor">#B1B1B1</color>
+
+    <color name="avg8until10">#12AA00</color>
+    <color name="avg6until8">#83BB00</color>
+    <color name="avg4until6">#E4B811</color>
+    <color name="avg0until4">#DD5733</color>
+    <color name="shimmer_background">#444444</color>
 </resources>

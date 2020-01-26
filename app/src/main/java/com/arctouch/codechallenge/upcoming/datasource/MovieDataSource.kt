@@ -45,7 +45,6 @@ class MovieDataSource(val context: Context, val errorCallback: PagingErrorCallba
           }
         } else{
           Log.d("viewstatelog", "response error, code = ${response.code()}")
-          if(response.message().isEmpty())
           errorCallback.onError(Error(response.code(), "Conteúdo não encontrado. Por favor, reinicie o app e tente mais tarde."))
         }
       }
